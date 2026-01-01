@@ -6,7 +6,6 @@ import { LayoutDashboard, Users, UserPlus, CheckSquare, Settings } from 'lucide-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ProfileSwitcher } from './ProfileSwitcher';
-import { SyncButton } from './SyncButton';
 
 // Using a simple navigation structure
 const navItems = [
@@ -47,9 +46,9 @@ export function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
-        <SyncButton />
         <ProfileSwitcher />
       </div>
+
     </div>
   );
 }
