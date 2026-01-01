@@ -49,12 +49,7 @@ export function Navbar() {
       <div className="flex items-center gap-4">
         <SyncButton />
         <ProfileSwitcher />
-        <button className="rounded-full p-2 hover:bg-gray-100 text-gray-500">
-            <Settings className="h-5 w-5" />
-        </button>
       </div>
-
-      {/* Mobile Menu Icon could go here, keeping it simple for now */}
     </div>
   );
 }
