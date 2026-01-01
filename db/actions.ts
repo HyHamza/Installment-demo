@@ -92,6 +92,13 @@ export async function getCustomers(profileId: string): Promise<Customer[]> {
   // Now let's figure out how much each customer has paid
   const customersWithPaidAmounts = await Promise.all(
     (customers || []).map(async (customer) => {
+      // We already checked supabase above, but TypeScript needs this
+      if (!supabase) {
+        customer.paid_amount = 0;
+        customer.remaining_amount = customer.total_amount;
+        return customer;
+      }
+
       const { data: installments, error: installmentError } = await supabase
         .from('installments')
         .select('amount')
