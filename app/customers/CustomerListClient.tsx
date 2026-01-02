@@ -8,6 +8,7 @@ import { Input } from '@/components/Input';
 import { Card, CardContent } from '@/components/Card';
 import { Button } from '@/components/Button';
 import { UserPlus, Search, Phone, FileText } from 'lucide-react';
+import { formatCurrency } from '@/lib/currency';
 import Link from 'next/link';
 
 export function CustomerListClient() {
@@ -127,11 +128,11 @@ function CustomerCard({ customer }: { customer: Customer }) {
                 <div className="space-y-3">
                     <div className="flex justify-between text-sm">
                         <span className="text-gray-500">Total Due</span>
-                        <span className="font-medium">${customer.total_amount.toFixed(2)}</span>
+                        <span className="font-medium">{formatCurrency(customer.total_amount)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                         <span className="text-gray-500">Remaining</span>
-                        <span className="font-bold text-blue-600">${(customer.remaining_amount || 0).toFixed(2)}</span>
+                        <span className="font-bold text-blue-600">{formatCurrency(customer.remaining_amount || 0)}</span>
                     </div>
 
                     <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
@@ -142,7 +143,7 @@ function CustomerCard({ customer }: { customer: Customer }) {
                     </div>
 
                     <div className="flex justify-between items-center pt-2">
-                        <span className="text-xs text-gray-400">Installment: ${customer.installment_amount}/day</span>
+                        <span className="text-xs text-gray-400">Installment: {formatCurrency(customer.installment_amount)}/day</span>
                         <Link href={`/customers/${customer.id}`}>
                             <Button variant="ghost" className="h-8 text-xs">View Details</Button>
                         </Link>

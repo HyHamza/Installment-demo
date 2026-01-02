@@ -1,6 +1,6 @@
 {
   "name": "installment-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,6 +13,7 @@
     "cloudinary": "^2.0.0",
     "clsx": "^2.0.0",
     "date-fns": "^3.0.0",
+    "dexie": "^4.2.1",
     "lucide-react": "^0.300.0",
     "next": "14.2.3",
     "react": "^18.3.1",
@@ -22,6 +23,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.8",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",

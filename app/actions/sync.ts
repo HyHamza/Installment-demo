@@ -1,24 +1,74 @@
 'use server';
 
 import { supabase } from '@/lib/supabase';
+import { revalidatePath } from 'next/cache';
 
 export async function syncData(profileId: string) {
+    console.log(`Starting sync for profile: ${profileId}`);
+    
     if (!supabase) {
-        return { success: false, message: 'Supabase isn\'t set up yet' };
+        throw new Error('Supabase client not available');
     }
 
     try {
-        // Since we're using Supabase as our main database now, everything is already synced!
-        // This function could be used later for things like:
-        // - Backing up to other services
-        // - Syncing with external APIs
-        // - Running data cleanup tasks
+        // This will be called from client-side to trigger server-side sync
+        // The actual sync logic will be handled by the client-side sync functions
         
-        console.log('All good! Everything is already synced with Supabase');
+        // Revalidate all paths to refresh cached data
+        revalidatePath('/');
+        revalidatePath('/customers');
+        revalidatePath('/daily');
         
-        return { success: true, message: 'Your data is safe and synced' };
-    } catch (error: any) {
-        console.error('Something went wrong during sync:', error);
-        return { success: false, message: error.message };
+        return { 
+            success: true, 
+            message: 'Sync completed successfully',
+            timestamp: new Date().toISOString()
+        };
+    } catch (error) {
+        console.error('Sync failed:', error);
+        return { 
+            success: false, 
+            message: 'Sync failed: ' + (error as Error).message 
+        };
+    }
+}
+
+// Server action to get online status and trigger sync
+export async function checkOnlineAndSync(profileId: string) {
+    if (!supabase) {
+        return { 
+            online: false, 
+            message: 'Supabase not configured' 
+        };
+    }
+
+    try {
+        // Test Supabase connection
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('id', profileId)
+            .limit(1);
+
+        if (error) {
+            return { 
+                online: false, 
+                message: 'Cannot connect to server' 
+            };
+        }
+
+        // If we're online, trigger sync
+        const syncResult = await syncData(profileId);
+        
+        return {
+            online: true,
+            syncResult,
+            message: 'Connected and synced'
+        };
+    } catch (error) {
+        return { 
+            online: false, 
+            message: 'Offline mode active' 
+        };
     }
 }

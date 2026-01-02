@@ -16,4 +16,173 @@
 
 body {
   @apply bg-white text-gray-900;
+  /* Prevent zoom on input focus on iOS */
+  -webkit-text-size-adjust: 100%;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+}
+
+/* Mobile-first touch improvements */
+@layer base {
+  /* Better touch targets */
+  button, [role="button"], input, select, textarea {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Prevent text selection on UI elements */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Safe area padding for mobile devices */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Custom scrollbar for mobile */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 2px;
+  }
+}
+
+/* Mobile-specific utilities */
+@layer utilities {
+  /* Touch-friendly spacing */
+  .touch-spacing {
+    @apply p-4 gap-4;
+  }
+  
+  /* Mobile card styling */
+  .mobile-card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-4;
+  }
+  
+  /* Mobile button variants */
+  .btn-mobile-primary {
+    @apply bg-blue-600 text-white px-6 py-3 rounded-lg font-medium text-base min-h-[48px] flex items-center justify-center gap-2 active:bg-blue-700 transition-colors;
+  }
+  
+  .btn-mobile-secondary {
+    @apply bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium text-base min-h-[48px] flex items-center justify-center gap-2 active:bg-gray-200 transition-colors;
+  }
+  
+  .btn-mobile-danger {
+    @apply bg-red-600 text-white px-6 py-3 rounded-lg font-medium text-base min-h-[48px] flex items-center justify-center gap-2 active:bg-red-700 transition-colors;
+  }
+  
+  /* Mobile input styling */
+  .input-mobile {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg text-base bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[48px];
+  }
+  
+  /* Mobile navigation */
+  .mobile-nav-item {
+    @apply flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition-colors min-h-[48px];
+  }
+  
+  /* Pull-to-refresh indicator */
+  .pull-to-refresh {
+    @apply flex items-center justify-center py-4 text-gray-500;
+  }
+  
+  /* Loading states */
+  .loading-skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+  
+  /* Mobile-specific animations */
+  .slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+}
+
+/* Mobile animations */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mobile-specific media queries */
+@media (max-width: 640px) {
+  /* Reduce padding on small screens */
+  .container {
+    @apply px-4;
+  }
+  
+  /* Stack elements vertically on mobile */
+  .mobile-stack {
+    @apply flex-col;
+  }
+  
+  /* Hide desktop-only elements */
+  .desktop-only {
+    @apply hidden;
+  }
+  
+  /* Full width on mobile */
+  .mobile-full {
+    @apply w-full;
+  }
+}
+
+/* Tablet and up */
+@media (min-width: 641px) {
+  .mobile-only {
+    @apply hidden;
+  }
 }

@@ -9,6 +9,7 @@ import { Card, CardContent } from '@/components/Card';
 import { Button } from '@/components/Button';
 import { format } from 'date-fns';
 import { CheckCircle2, Circle, Calendar as CalendarIcon, Loader2 } from 'lucide-react';
+import { formatCurrency } from '@/lib/currency';
 
 export default function DailyTickPage() {
     const { currentProfile } = useProfile();
@@ -99,7 +100,7 @@ export default function DailyTickPage() {
                  <Card className="bg-blue-50 border-blue-100">
                      <CardContent className="p-4 flex flex-col">
                          <span className="text-sm text-blue-600 font-medium">Collected Today</span>
-                         <span className="text-2xl font-bold text-blue-700">${totalCollectedToday.toFixed(2)}</span>
+                         <span className="text-2xl font-bold text-blue-700">{formatCurrency(totalCollectedToday)}</span>
                      </CardContent>
                  </Card>
                  <Card className="bg-gray-50 border-gray-100">
@@ -136,9 +137,9 @@ export default function DailyTickPage() {
                                     <div>
                                         <div className="font-medium text-gray-900">{customer.name}</div>
                                         <div className="text-sm text-gray-500">
-                                            Due: ${customer.installment_amount}
+                                            Due: {formatCurrency(customer.installment_amount)}
                                             <span className="mx-2">•</span>
-                                            Rem: ${(customer.remaining_amount || 0).toFixed(2)}
+                                            Rem: {formatCurrency(customer.remaining_amount || 0)}
                                         </div>
                                     </div>
                                 </div>

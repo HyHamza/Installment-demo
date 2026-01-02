@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/Card';
 import { format } from 'date-fns';
 import { ArrowLeft, Phone, DollarSign, Calendar } from 'lucide-react';
+import { formatCurrency } from '@/lib/currency';
 import Link from 'next/link';
 
 export default async function CustomerDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -46,19 +47,19 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
                              <div className="grid grid-cols-2 gap-4 mt-4">
                                 <div>
                                     <label className="text-sm text-gray-500">Total Amount</label>
-                                    <div className="text-lg font-semibold">${customer.total_amount.toFixed(2)}</div>
+                                    <div className="text-lg font-semibold">{formatCurrency(customer.total_amount)}</div>
                                 </div>
                                 <div>
                                     <label className="text-sm text-gray-500">Daily Installment</label>
-                                    <div className="text-lg font-semibold">${customer.installment_amount.toFixed(2)}</div>
+                                    <div className="text-lg font-semibold">{formatCurrency(customer.installment_amount)}</div>
                                 </div>
                                 <div>
                                     <label className="text-sm text-gray-500">Paid Amount</label>
-                                    <div className="text-lg font-semibold text-green-600">${(customer.paid_amount || 0).toFixed(2)}</div>
+                                    <div className="text-lg font-semibold text-green-600">{formatCurrency(customer.paid_amount || 0)}</div>
                                 </div>
                                 <div>
                                     <label className="text-sm text-gray-500">Remaining</label>
-                                    <div className="text-lg font-semibold text-blue-600">${(customer.remaining_amount || 0).toFixed(2)}</div>
+                                    <div className="text-lg font-semibold text-blue-600">{formatCurrency(customer.remaining_amount || 0)}</div>
                                 </div>
                              </div>
 
@@ -91,7 +92,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
                                                     <DollarSign size={16} />
                                                 </div>
                                                 <div>
-                                                    <div className="font-medium text-gray-900">${inst.amount.toFixed(2)}</div>
+                                                    <div className="font-medium text-gray-900">{formatCurrency(inst.amount)}</div>
                                                     <div className="text-xs text-gray-500 flex items-center">
                                                         <Calendar size={10} className="mr-1" />
                                                         {format(new Date(inst.date), 'MMM d, yyyy')}
